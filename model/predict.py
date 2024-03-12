@@ -15,18 +15,11 @@ from model.other_instruments import create_hard_drum_track, create_Banjo_track
 import os
 
 
-# predict_dir = os.path.dirname(os.path.abspath(__file__))
-# # notes_path = os.path.join(predict_dir, 'data', 'notes')
-# notes_path = os.path.join(predict_dir, '..', 'model', 'data', 'notes')
-
-# # weights_path = os.path.join(predict_dir, 'weights', 'weights-improvement-21-2.2238.keras')
-
-# weights_path = os.path.join(predict_dir, '..', 'model', 'weights', 'weights-improvement-21-2.2238.keras')
 
 
 predict_dir = os.path.dirname(os.path.abspath(__file__))
 notes_path = os.path.join(predict_dir, 'data', 'notes')
-weights_path = os.path.join(predict_dir, 'weights', 'weights-improvement-21-0.5590.keras')
+weights_path = os.path.join(predict_dir, 'weights.keras')
 output_dir = os.path.join('music_output')
 output_file = os.path.join(output_dir, 'output.mid')
 
@@ -129,7 +122,7 @@ def generate_notes(model, network_input, pitchnames, n_vocab):
     return prediction_output
 
 
-def create_midi(prediction_output, output_filename=output_file, lead_instrument=instrument.AcousticGuitar(), add_parts=[]):
+def create_midi(prediction_output, output_filename=output_file, lead_instrument=instrument.Guitar(), add_parts=[]):
     """Convert the output from the prediction to notes and create a midi file
     from the notes, with adjustments for techno music."""
 
@@ -172,4 +165,4 @@ def create_midi(prediction_output, output_filename=output_file, lead_instrument=
     final_stream.write('midi', fp=output_filename)
 
 if __name__ == '__main__':
-    generate(lead_instrument=instrument.AcousticGuitar(), add_parts=None)
+    generate(lead_instrument=instrument.Guitar(), add_parts=None)
