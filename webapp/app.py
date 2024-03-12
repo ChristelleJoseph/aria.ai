@@ -65,7 +65,7 @@ def show():
     col1, col2 = st.columns(2)
     with col1:
         lead_instrument_option = st.selectbox(
-            "",
+            "Select lead instrument:",
             ['Piano', 'Guitar'],
             index=0,
             key='lead_instrument_selectbox'
