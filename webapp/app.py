@@ -1,6 +1,11 @@
+import streamlit as st
+st.set_page_config(
+    page_title='Aria.ai',
+    page_icon= "🎧"
+)
+
 import sys
 import os
-
 current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
@@ -8,7 +13,6 @@ sys.path.append(parent_dir)
 from model.predict import generate
 import streamlit as st
 from pages import technical_details
-import mido
 import matplotlib.pyplot as plt
 from mido import MidiFile
 from music21 import instrument
@@ -22,10 +26,6 @@ import librosa.display
 from plots import plot_midi_notes_with_labels, plot_waveform
 
 
-st.set_page_config(
-    page_title='Aria.ai',
-    page_icon= "🎧"
-)
 def generate_colored_text(text, colors):
     return "".join(
         f"<span style='color: {colors[i % len(colors)]}; font-size: 75px; font-weight: bold;'>{char}</span>"
@@ -123,7 +123,7 @@ def show():
 
 
         # Convert Original MIDI to WAV
-        fs = FluidSynth('soundfonts/Rocchetta.sf2')
+        fs = FluidSynth('soundfonts/TyrolandGS.sf2')
         fs.midi_to_audio(midi_file, 'music_output/output.wav')
         audio_path = 'music_output/output.wav'
 
@@ -134,11 +134,8 @@ def show():
 
         # Convert Original MIDI to EDM WAV
         fs = FluidSynth('soundfonts/ClubSawHD.sf2')
-
-
-        fs.midi_to_audio(midi_file, 'music_output/output_LP.wav')
-
-        edm_track = 'music_output/output_LP.wav'
+        fs.midi_to_audio(midi_file, 'music_output/output_techno.wav')
+        edm_track = 'music_output/output_techno.wav'
         st.title("EDM-ify")
         st.audio(edm_track)
 
