@@ -4,15 +4,19 @@ st.set_page_config(
     page_icon= "🎧"
 )
 
+import streamlit as st
 import sys
 import os
-current_dir = os.path.dirname(os.path.abspath(__file__))
+
+if 'streamlit' in os.environ:
+    current_dir = os.getcwd()
+else:
+    current_dir = os.path.dirname(os.path.abspath(__file__))
 parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
 
+# Importing after adding the parent directory to the path
 from model.predict import generate
-import streamlit as st
-from pages import technical_details
 import matplotlib.pyplot as plt
 from mido import MidiFile
 from music21 import instrument
@@ -123,17 +127,18 @@ def show():
 
 
         # Convert Original MIDI to WAV
-        fs = FluidSynth('soundfonts/TyrolandGS.sf2')
+        soundfont_path_1 = os.path.join(current_dir, 'soundfonts', 'Rocchetta.sf2')
+        fs = FluidSynth(soundfont_path_1)
         fs.midi_to_audio(midi_file, 'music_output/output.wav')
         audio_path = 'music_output/output.wav'
-
 
         plot_waveform(audio_path)
         st.audio(audio_path)
         st.image('graph_images/wave.png')
 
         # Convert Original MIDI to EDM WAV
-        fs = FluidSynth('soundfonts/ClubSawHD.sf2')
+        soundfont_path_2 = os.path.join(current_dir, 'soundfonts', 'ClubSawHD.sf2')
+        fs = FluidSynth(soundfont_path_2)
         fs.midi_to_audio(midi_file, 'music_output/output_techno.wav')
         edm_track = 'music_output/output_techno.wav'
         st.title("EDM-ify")
