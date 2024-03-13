@@ -4,7 +4,6 @@ st.set_page_config(
     page_icon= "🎧"
 )
 
-import streamlit as st
 import sys
 import os
 
